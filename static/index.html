@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Outpost</title>
+<style>
+:root{--cream:#f6efe0;--ink:#131313;--pink:#f5a9cf;--yellow:#f4d64e;--green:#9fb356;--blue:#a8c3f0;--sand:#ebe4d3;--grid:rgba(19,19,19,.16)}
+*{box-sizing:border-box}
+body{margin:0;padding:16px;color:var(--ink);font:14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;
+ background-color:var(--cream);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.app{display:grid;grid-template-columns:190px 1fr;gap:14px;max-width:1320px;margin:auto;padding:14px;border:2px solid #333;border-radius:28px;min-height:calc(100vh - 32px)}
+.side{background:var(--ink);color:#d8d8d8;border-radius:22px;padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:30px;height:calc(100vh - 92px)}
+.logo{font-size:26px;font-weight:700;color:#fff;letter-spacing:-.5px;margin:0 8px 18px}
+.side button[data-go]{color:#d8d8d8;text-align:left;padding:9px 10px;border-radius:10px}
+.side button[data-go]:hover,.side button[data-go].on{background:#2a2a2a;color:#fff}
+.badge{margin:auto 6px 0;font-size:12px;color:#9aa;display:flex;gap:6px;align-items:center}
+.badge i{width:9px;height:9px;border-radius:50%;background:#777;flex:none}.badge.ok i{background:#7ed36f}
+main{padding:6px 8px;min-width:0}
+.view{display:none}.view.on{display:block}
+h1{font-size:30px;margin:6px 0 4px;letter-spacing:-.6px}
+.sub{margin:0 0 16px;color:#333}
+h2{font-size:17px;margin:0 0 10px}
+.muted{color:#555}
+.panel{background:#fff;border:1.5px solid var(--ink);border-radius:22px;padding:14px 16px}
+.y,.p,.g,.b{background:var(--ink);color:#fff}.y .muted,.p .muted,.g .muted,.b .muted{color:#bbb}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.stat{border:0}.stat b{display:block;font-size:28px;line-height:1.2}.stat span{font-size:13px;color:#ccc}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.grid2.wide{grid-template-columns:3fr 2fr}
+.grid2 .panel{border:0}
+.row{display:flex;align-items:center;gap:10px;background:var(--sand);border-radius:16px;padding:8px 10px;margin-bottom:8px;width:100%;text-align:left}
+.row.on{background:var(--ink);color:#fff}.row.on small{color:#bbb}
+.dot{min-width:34px;height:34px;border-radius:12px;display:grid;place-items:center;font-weight:700;font-size:12px;flex:none;padding:0 6px;background:#fff}
+.row div{flex:1;min-width:0}.row small{display:block;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{border-radius:12px;padding:2px 9px;font-size:12px;background:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chip{background:#fff;border-radius:12px;padding:2px 9px;font-size:12px}
+.days{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.days button{background:var(--sand);border-radius:12px;padding:7px 12px}
+.days button.on{background:var(--ink);color:#fff;font-weight:700}.days button.on small{color:#bbb}
+.days small{margin-left:5px;color:#555}
+.bar{display:flex;gap:8px;align-items:center;background:#fff;border:1.5px solid var(--ink);border-radius:24px;padding:5px 6px 5px 16px}
+.bar input{flex:1;border:0;outline:0;background:none;min-width:0}
+.btn{border-radius:16px;padding:6px 14px;background:var(--ink);color:#fff}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.ghost.on{background:var(--ink);color:#fff}
+#ans{display:none;margin-top:16px}
+#ans p{margin:0 0 10px}
+.tl{max-width:760px}
+.dh{font-weight:700;margin:16px 0 6px}
+.ev{background:var(--sand);border-radius:14px;padding:8px 12px;margin-bottom:6px}
+.ev.st{background:var(--ink);color:#fff;font-weight:600}
+.log{background:var(--ink);color:#bbb;border-radius:18px;padding:10px 14px;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;max-height:220px;overflow:auto}
+form{max-width:480px;background:var(--sand);border:0}
+label{display:block;margin:10px 0 3px;font-size:13px}
+input.f,select,textarea{width:100%;padding:8px 10px;border:1.5px solid var(--ink);border-radius:12px;background:#fff}
+#ferr{color:#a11;margin:8px 0 0}#fok{margin:8px 0 0;font-weight:600}
+@media(max-width:900px){.app{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}.logo{margin:0 10px 0 4px}.badge{margin:0 0 0 auto}.stats{grid-template-columns:1fr 1fr}.grid2,.grid2.wide{grid-template-columns:1fr}body{padding:8px}h1{font-size:24px}}
+</style></head><body>
+<div class="app">
+<nav class="side">
+ <div class="logo">Outpost</div>
+ <button data-go="dash" class="on">Dashboard</button>
+ <button data-go="ask">Ask the camp</button>
+ <button data-go="replay">Weekly replay</button>
+ <button data-go="post">Post note</button>
+ <div class="badge" id="badge"><i></i><span>Checking memory…</span></div>
+</nav>
+<main>
+
+<section class="view on" id="v-dash">
+ <h1 id="hello">Camp overview</h1>
+ <p class="sub" id="sub"></p>
+ <div class="stats">
+  <div class="panel stat y"><b id="s1">0</b><span>Notes</span></div>
+  <div class="panel stat g"><b id="s2">0</b><span>Verified</span></div>
+  <div class="panel stat p"><b id="s3">0</b><span>Unverified</span></div>
+  <div class="panel stat b"><b id="s4">0</b><span>Memory recalls</span></div>
+ </div>
+ <div class="grid2">
+  <div class="panel y"><h2>Reports per day</h2><div id="bars"></div></div>
+  <div class="panel p"><h2>Total notes over the week</h2><div id="line"></div></div>
+ </div>
+ <h2>Recent notes</h2>
+ <div class="days" id="days-dash"></div>
+ <div class="grid2 wide">
+  <div id="list"></div>
+  <div class="panel p" id="det"></div>
+ </div>
+</section>
+
+<section class="view" id="v-ask">
+ <h1>Ask the camp</h1>
+ <p class="sub">Answers come from posted notes and uploaded manuals, with sources.</p>
+ <div class="bar"><input id="q" placeholder="e.g. Where is the clean water source?" autocomplete="off">
+  <button class="btn ghost on" id="mem" title="Turn team memory on or off">Memory on</button>
+  <button class="btn" id="askbtn">Ask</button></div>
+ <div class="panel" id="ans"></div>
+ <h2 style="margin-top:24px">Memory activity</h2>
+ <div class="log" id="log"></div>
+</section>
+
+<section class="view" id="v-replay">
+ <h1>Weekly replay</h1>
+ <p class="sub">What was reported each day, with changes in status highlighted.</p>
+ <div class="days" id="days-replay"></div>
+ <div class="tl" id="tl"></div>
+</section>
+
+<section class="view" id="v-post">
+ <h1>Post a note</h1>
+ <p class="sub">Add what you saw. It is saved locally and added to team memory.</p>
+ <form id="frm" class="panel">
+  <label for="fa">Your name</label><input class="f" id="fa" required>
+  <label for="fr">Role</label><select id="fr"><option>Site medic</option><option>Safety officer</option><option>Team lead</option><option selected>Crew member</option></select>
+  <label for="ft">Trust label</label><select id="ft"><option>Verified by safety officer</option><option>Verified by team lead</option><option selected>Unverified observation</option></select>
+  <label for="fd">Day</label><select id="fd"></select>
+  <label for="fx">Note</label><textarea id="fx" rows="4" required></textarea>
+  <p id="ferr"></p><p id="fok"></p>
+  <div style="margin-top:14px"><button class="btn" id="save">Save note</button></div>
+ </form>
+</section>
+
+</main></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let notes=[],logs=[],day=0,sel=null,mem=true,cnt=-1,rp=[];
+const j=async(u,o)=>(await fetch(u,o)).json();
+
+function go(v){
+ document.querySelectorAll(".view").forEach(x=>x.classList.toggle("on",x.id==="v-"+v));
+ document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("on",b.dataset.go===v));
+ if(v==="post")openPost();
+ if(v==="ask")$("#q").focus();
+ scrollTo(0,0);
+}
+document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+
+async function refresh(){
+ try{notes=await j("/api/notes");logs=await j("/api/log")}catch(e){}
+ if(notes.length!==cnt){cnt=notes.length;await loadReplay()}
+ render();
+}
+async function loadReplay(){
+ try{const r=await j("/api/replay");rp=[];let d=null;
+  String(r.timeline).split("\n").forEach(l=>{
+   const m=l.match(/^Day (\d+):/);
+   if(m){d={day:+m[1],items:[]};rp.push(d)}
+   else if(d&&l.trim())d.items.push(l.startsWith("Status")?{st:1,t:l}:{t:l.replace(/^- /,"")})});
+ }catch(e){}
+}
+function dayButtons(){
+ const per=[1,2,3,4,5,6,7].map(d=>notes.filter(n=>n.day===d).length);
+ const h=`<button data-day="0" class="${day?"":"on"}">All<small>${notes.length}</small></button>`+per.map((v,i)=>`<button data-day="${i+1}" class="${day===i+1?"on":""}">Day ${i+1}<small>${v}</small></button>`).join("");
+ $("#days-dash").innerHTML=h;$("#days-replay").innerHTML=h;
+ return per;
+}
+function render(){
+ const per=dayButtons(),m=Math.max(1,...per);
+ const un=notes.filter(n=>n.trust==="Unverified observation").length;
+ $("#sub").textContent=notes.length?`${notes.length} notes across ${new Set(notes.map(n=>n.day)).size} days. ${un} still unverified.`:"No notes yet. Post the first one.";
+ $("#s1").textContent=notes.length;$("#s2").textContent=notes.length-un;$("#s3").textContent=un;
+ $("#s4").textContent=logs.filter(e=>e.kind==="recall query").length;
+ $("#bars").innerHTML=`<svg viewBox="0 0 280 110" width="100%">`+per.map((v,i)=>`<rect x="${i*38+10}" y="${90-v/m*70}" width="22" height="${v/m*70}" rx="3" fill="#fff"/><text x="${i*38+21}" y="${86-v/m*70}" font-size="10" text-anchor="middle" fill="#ccc">${v}</text><text x="${i*38+21}" y="105" font-size="10" text-anchor="middle" fill="#ccc">D${i+1}</text>`).join("")+`</svg>`;
+ let c=0;const cum=per.map(v=>c+=v),t=Math.max(1,c);
+ const pts=cum.map((v,i)=>[20+i*40,90-v/t*70]);
+ $("#line").innerHTML=`<svg viewBox="0 0 280 110" width="100%"><polyline points="${pts.map(p=>p.join(",")).join(" ")}" fill="none" stroke="#fff" stroke-width="2"/>`+pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="#fff"/><text x="${p[0]}" y="105" font-size="10" text-anchor="middle" fill="#ccc">D${i+1}</text>`).join("")+`</svg>`;
+ const L=notes.filter(n=>!day||n.day===day).sort((a,b)=>b.day-a.day||b.time.localeCompare(a.time)||b.id-a.id).slice(0,6);
+ $("#list").innerHTML=L.length?L.map(n=>`<button class="row ${sel&&sel.id===n.id?"on":""}" data-id="${n.id}"><span class="dot">D${n.day}</span><div><b>${esc(n.author)}</b><small>${esc(n.text)}</small></div><span class="tag">${esc(n.time)}</span></button>`).join(""):`<p class="muted">No notes for this day.</p>`;
+ $("#det").innerHTML=sel?`<h2>${esc(sel.author)}</h2><div class="chips"><span class="chip">Day ${sel.day}, ${esc(sel.time)}</span><span class="chip">${esc(sel.role)}</span><span class="chip">${esc(sel.trust)}</span></div><p>${esc(sel.text)}</p>`:`<h2>Note details</h2><p class="muted">Select a note to see who wrote it and how far to trust it.</p>`;
+ $("#log").innerHTML=logs.slice(-30).map(e=>`${esc(e.t)}  ${esc(e.kind)}  ${esc(e.msg)}`).join("<br>")||"No memory activity yet.";
+ const ds=rp.filter(d=>!day||d.day===day);
+ $("#tl").innerHTML=ds.map(d=>`<div class="dh">Day ${d.day}</div>`+d.items.map(i=>`<div class="ev ${i.st?"st":""}">${esc(i.t)}</div>`).join("")).join("")||`<p class="muted">Nothing to replay yet. Post a note to start the timeline.</p>`;
+}
+document.addEventListener("click",e=>{
+ const r=e.target.closest("[data-id]");if(r){sel=notes.find(n=>n.id==r.dataset.id);render()}
+ const d=e.target.closest("[data-day]");if(d){day=+d.dataset.day;render()}
+});
+async function ask(){
+ const q=$("#q").value.trim();if(!q)return;
+ const a=$("#ans");a.style.display="block";a.innerHTML=`<p class="muted">Thinking…</p>`;
+ try{const r=await j(`/api/ask?q=${encodeURIComponent(q)}&memory=${mem?"on":"off"}`);
+  a.innerHTML=`<p><b>${esc(r.answer)}</b></p>`+(r.sources||[]).map(s=>`<div class="row"><span class="dot">${s.day?"D"+s.day:"Doc"}</span><div><b>${esc(s.author)} <span class="chip">${esc(s.trust)}</span></b><small style="white-space:normal">${esc(s.text)}</small></div></div>`).join("");
+  refresh()}
+ catch(e){a.innerHTML=`<p>The server did not answer. Check that it is still running.</p>`}
+}
+$("#askbtn").onclick=ask;$("#q").onkeydown=e=>{if(e.key==="Enter")ask()};
+$("#mem").onclick=()=>{mem=!mem;$("#mem").textContent=mem?"Memory on":"Memory off";$("#mem").classList.toggle("on",mem)};
+function openPost(){$("#fd").innerHTML=[1,2,3,4,5,6,7].map(d=>`<option ${d===(day||1)?"selected":""}>${d}</option>`).join("");$("#ferr").textContent="";$("#fok").textContent=""}
+$("#frm").onsubmit=async e=>{
+ e.preventDefault();
+ const r=await j("/api/note",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({author:$("#fa").value,role:$("#fr").value,trust:$("#ft").value,day:+$("#fd").value,text:$("#fx").value})});
+ if(r.status==="error"){$("#ferr").textContent=r.error;$("#fok").textContent="";return}
+ $("#fx").value="";$("#ferr").textContent="";$("#fok").textContent="Note saved. It is being added to team memory.";
+ refresh();setTimeout(refresh,2500);setTimeout(refresh,8000);
+};
+j("/api/health").then(h=>{const b=$("#badge");b.classList.toggle("ok",!!h.hindsight);b.querySelector("span").textContent=h.hindsight?"Camp memory active":"Local notes only (memory unreachable)"}).catch(()=>{$("#badge span").textContent="Server not reachable"});
+refresh();setInterval(refresh,5000);
+</script></body></html>

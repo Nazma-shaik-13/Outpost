@@ -1,0 +1,117 @@
+{
+ "synthetic": true,
+ "notes": [
+  {
+   "author": "Suresh",
+   "role": "Crew member",
+   "trust": "Unverified observation",
+   "day": 1,
+   "text": "camp setup done, tents up on flat ground nr N hill. gen running ok"
+  },
+  {
+   "author": "Ravi",
+   "role": "Team lead",
+   "trust": "Verified by team lead",
+   "day": 1,
+   "text": "Water src A found at base of N Hill, approx 400m from camp. Looks clear, no odour. OK to use for wash + cooking."
+  },
+  {
+   "author": "Kavya",
+   "role": "Crew member",
+   "trust": "Unverified observation",
+   "day": 1,
+   "text": "src A water tastes fine, filled 3 jerrycans"
+  },
+  {
+   "author": "Meera",
+   "role": "Safety officer",
+   "trust": "Verified by safety officer",
+   "day": 2,
+   "text": "STOP using Src A. Test strip positive - contaminated, diesel sheen upstream. Boil/bottled only till new src."
+  },
+  {
+   "author": "Imran",
+   "role": "Crew member",
+   "trust": "Unverified observation",
+   "day": 2,
+   "text": "saw oil drums leaking uphill of src A near N Hill track"
+  },
+  {
+   "author": "Ravi",
+   "role": "Team lead",
+   "trust": "Verified by team lead",
+   "day": 3,
+   "text": "Found clean creek east of camp (East Creek), Src B. Tested w/ strips ok, clear flow. Use B for all water."
+  },
+  {
+   "author": "Meera",
+   "role": "Safety officer",
+   "trust": "Verified by safety officer",
+   "day": 3,
+   "text": "Src B test OK, chlorine tabs added anyway. Approved for drinking."
+  },
+  {
+   "author": "Suresh",
+   "role": "Crew member",
+   "trust": "Unverified observation",
+   "day": 3,
+   "text": "gen died 2200, wont restart, belt looks shredded"
+  },
+  {
+   "author": "Imran",
+   "role": "Crew member",
+   "trust": "Unverified observation",
+   "day": 4,
+   "text": "gen belt replaced, ran 30min ok. used spare belt from store box 2"
+  },
+  {
+   "author": "Ravi",
+   "role": "Team lead",
+   "trust": "Verified by team lead",
+   "day": 4,
+   "text": "Confirmed gen repaired by Imran, belt swap done, load test ok."
+  },
+  {
+   "author": "Kavya",
+   "role": "Crew member",
+   "trust": "Unverified observation",
+   "day": 4,
+   "text": "gen still a bit noisy at idle, check tension tmrw"
+  },
+  {
+   "author": "Dr. Anil",
+   "role": "Site medic",
+   "trust": "Unverified observation",
+   "day": 5,
+   "text": "3 crew c/o stomach cramps + vomiting since am (Suresh, Kavya, Imran). ORS given, rest. Prob the src A jerrycans from D1?"
+  },
+  {
+   "author": "Meera",
+   "role": "Safety officer",
+   "trust": "Verified by safety officer",
+   "day": 5,
+   "text": "Med incident logged. Src A jerrycans discarded. Only Src B water from now."
+  },
+  {
+   "author": "Suresh",
+   "role": "Crew member",
+   "trust": "Unverified observation",
+   "day": 6,
+   "text": "fuel low, approx 1/4 drum left, ~2 days at current use"
+  },
+  {
+   "author": "Ravi",
+   "role": "Team lead",
+   "trust": "Verified by team lead",
+   "day": 7,
+   "text": "Road washout at km 12 after rain, trucks cant pass. Supply drop requested (fuel, food, ORS)."
+  },
+  {
+   "author": "Meera",
+   "role": "Safety officer",
+   "trust": "Verified by safety officer",
+   "day": 7,
+   "text": "Supply drop req sent via sat radio, ETA unknown. Ration water 3L/person/day."
+  }
+ ]
+}
